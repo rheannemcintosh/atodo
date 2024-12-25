@@ -10,4 +10,14 @@ class ToDoList extends Model
         'date',
         'completed'
     ];
+
+    public function taskStatus()
+    {
+        return $this->belongsTo(TaskStatus::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }
