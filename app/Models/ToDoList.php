@@ -13,7 +13,7 @@ class ToDoList extends Model
 
     public function taskStatus()
     {
-        return $this->belongsTo(TaskStatus::class);
+        return $this->hasMany(TaskStatus::class);
     }
 
     public function tasks()
