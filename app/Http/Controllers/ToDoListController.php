@@ -22,14 +22,20 @@ class ToDoListController extends Controller
             abort(404, 'To-do list not found for the given date.');
         }
 
-        // Get all task statuses with their related tasks
-        $taskStatuses = $toDoList->taskStatus()->with('task')->get();
+        // Get all task statuses
+        $taskStatuses = $toDoList->taskStatus;
 
         // Extract tasks from task statuses
         $tasks = $taskStatuses->pluck('task')->filter(); // Ensures we only include non-null tasks
 
+        $joinedCollection = $tasks->map(function ($task) use ($taskStatuses) {
+            $task['status'] = $taskStatuses->firstWhere('task_id', $task['id'])['status'] ?? null; // Get status or null
+            $task['task_status_id'] = $taskStatuses->firstWhere('task_id', $task['id'])['id'] ?? null;
+            return $task;
+        });
+
         // Group tasks by category_id
-        $tasksByCategory = $tasks->groupBy('category_id');
+        $tasksByCategory = $joinedCollection->groupBy('category_id');
 
         // Prepare data for the view
         $groupedTasks = [];

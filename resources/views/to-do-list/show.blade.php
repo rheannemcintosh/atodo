@@ -8,7 +8,7 @@
     <h3>{{ $group['category_name'] }}</h3>
     <ul>
         @forelse ($group['tasks'] as $task)
-            <li>{{ $task->title }}</li>
+            <li>{{ $task->title }} | {{ $task->status }}</li>
         @empty
             <li>No tasks found in this category.</li>
         @endforelse
