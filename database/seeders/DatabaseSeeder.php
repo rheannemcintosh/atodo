@@ -2,22 +2,37 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\custom\CategorySeeder;
+use Database\Seeders\custom\TaskSeeder;
+use Database\Seeders\custom\TaskStatusSeeder;
+use Database\Seeders\custom\ToDoListSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+
+    /**
+     * @var string[] $customSeeders
+     */
+    private array $customSeeders = [
+        'database/seeders/custom/CategorySeeder.php'   => CategorySeeder::class,
+        'database/seeders/custom/TaskSeeder.php'       => TaskSeeder::class,
+        'database/seeders/custom/TaskStatusSeeder.php' => TaskStatusSeeder::class,
+        'database/seeders/custom/ToDoListSeeder.php'   => ToDoListSeeder::class,
+    ];
+
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
         ]);
+
+        foreach ($this->customSeeders as $file => $seederClass) {
+            if (file_exists(base_path($file))) {
+                $this->call($seederClass);
+            }
+        }
     }
 }
