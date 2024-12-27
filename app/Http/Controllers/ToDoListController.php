@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\ToDoList;
+use App\Services\TaskAssignmentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
@@ -39,7 +40,9 @@ class ToDoListController extends Controller
             'is_makeup_day'  => 'boolean',
         ]);
 
-        ToDoList::create($request->all());
+        $toDoList = ToDoList::create($request->all());
+
+        app(TaskAssignmentService::class)->assignTasks($toDoList);
 
         return redirect()->route('to-do-list.index')->with('success', 'Category created successfully.');
     }
