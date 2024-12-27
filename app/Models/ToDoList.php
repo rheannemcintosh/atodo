@@ -14,12 +14,12 @@ class ToDoList extends Model
         'completed'
     ];
 
-    public function taskStatus()
+    public function tasks()
     {
-        return $this->hasMany(TaskStatus::class);
+        return $this->hasMany(Task::class);
     }
 
-    public function tasks()
+    public function taskDetails()
     {
         return $this->hasMany(TaskDetail::class);
     }

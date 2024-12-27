@@ -16,8 +16,8 @@ class TaskDetail extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function taskStatus()
+    public function tasks()
     {
-        return $this->hasMany(TaskStatus::class);
+        return $this->hasMany(Task::class);
     }
 }
