@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Database\Seeders\custom\CategorySeeder;
+use Database\Seeders\custom\TaskDetailSeeder;
 use Database\Seeders\custom\TaskSeeder;
-use Database\Seeders\custom\TaskStatusSeeder;
 use Database\Seeders\custom\ToDoListSeeder;
 use Illuminate\Database\Seeder;
 
@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     private array $customSeeders = [
         'database/seeders/custom/CategorySeeder.php'   => CategorySeeder::class,
+        'database/seeders/custom/TaskDetailSeeder.php' => TaskDetailSeeder::class,
         'database/seeders/custom/TaskSeeder.php'       => TaskSeeder::class,
-        'database/seeders/custom/TaskStatusSeeder.php' => TaskStatusSeeder::class,
         'database/seeders/custom/ToDoListSeeder.php'   => ToDoListSeeder::class,
     ];
 

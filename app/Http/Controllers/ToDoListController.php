@@ -63,14 +63,14 @@ class ToDoListController extends Controller
         }
 
         // Get all task statuses
-        $taskStatuses = $toDoList->taskStatus;
+        $tasks = $toDoList->tasks;
 
         // Extract tasks from task statuses
-        $tasks = $taskStatuses->pluck('taskDetail')->filter(); // Ensures we only include non-null tasks
+        $taskDetails = $tasks->pluck('taskDetail')->filter(); // Ensures we only include non-null tasks
 
-        $joinedCollection = $tasks->map(function ($task) use ($taskStatuses) {
-            $task['status'] = $taskStatuses->firstWhere('task_detail_id', $task['id'])['status'] ?? null; // Get status or null
-            $task['task_status_id'] = $taskStatuses->firstWhere('task_detail_id', $task['id'])['id'] ?? null;
+        $joinedCollection = $taskDetails->map(function ($task) use ($tasks) {
+            $task['status'] = $tasks->firstWhere('task_detail_id', $task['id'])['status'] ?? null; // Get status or null
+            $task['task_status_id'] = $tasks->firstWhere('task_detail_id', $task['id'])['id'] ?? null;
             return $task;
         });
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TaskStatus extends Model
+class Task extends Model
 {
     protected $fillable = [
         'task_detail_id',

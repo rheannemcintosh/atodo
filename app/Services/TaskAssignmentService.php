@@ -41,7 +41,7 @@ class TaskAssignmentService
     private function createTasks (ToDoList $toDoList, $tasks)
     {
         foreach ($tasks as $task) {
-            $toDoList->taskStatus()->create([
+            $toDoList->tasks()->create([
                 'task_detail_id' => $task->id,
                 'to_do_list_id'  => $toDoList->id,
                 'status'         => 'To Do',
