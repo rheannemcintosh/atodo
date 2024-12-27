@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->boolean('is_working_day')->default(false);
+            $table->boolean('is_outside_day')->default(false);
             $table->boolean('completed')->default(false);
             $table->timestamps();
         });

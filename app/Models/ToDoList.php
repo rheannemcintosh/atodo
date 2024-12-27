@@ -9,6 +9,7 @@ class ToDoList extends Model
     protected $fillable = [
         'date',
         'is_working_day',
+        'is_outside_day',
         'completed'
     ];
 
