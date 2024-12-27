@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('task_statuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('task_id')->constrained();
+            $table->foreignId('task_detail_id')->constrained();
             $table->foreignId('to_do_list_id')->constrained();
             $table->enum('status', [
                 'To Do',

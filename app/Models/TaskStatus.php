@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class TaskStatus extends Model
 {
     protected $fillable = [
-        'task_id',
+        'task_detail_id',
         'status'
     ];
 
-    public function task()
+    public function taskDetail()
     {
-        return $this->belongsTo(Task::class);
+        return $this->belongsTo(TaskDetail::class);
     }
 
     public function toDoList()
