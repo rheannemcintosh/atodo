@@ -36,6 +36,7 @@ class ToDoListController extends Controller
             'date'           => 'required|date|unique:to_do_lists',
             'is_working_day' => 'boolean',
             'is_outside_day' => 'boolean',
+            'is_makeup_day'  => 'boolean',
         ]);
 
         ToDoList::create($request->all());
@@ -108,6 +109,7 @@ class ToDoListController extends Controller
             ],
             'is_working_day' => 'boolean',
             'is_outside_day' => 'boolean',
+            'is_makeup_day'  => 'boolean',
         ]);
 
         $toDoList->update($request->all());
@@ -115,6 +117,7 @@ class ToDoListController extends Controller
         $toDoList->update([
             'is_working_day' => $request->has('is_working_day') ? 1 : 0,
             'is_outside_day' => $request->has('is_outside_day') ? 1 : 0,
+            'is_makeup_day'  => $request->has('is_makeup_day') ? 1 : 0,
         ]);
 
         return redirect()->route('to-do-list.index')->with('success', 'To Do List updated successfully.');
