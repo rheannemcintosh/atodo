@@ -34,6 +34,7 @@ class CategoryController extends Controller
         $request->validate([
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
+            'is_active'   => 'boolean',
         ]);
 
         Category::create($request->all());
@@ -65,6 +66,7 @@ class CategoryController extends Controller
         $request->validate([
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
+            'is_active'   => 'boolean',
         ]);
 
         $category->update($request->all());

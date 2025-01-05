@@ -9,6 +9,7 @@ class Category extends Model
     protected $fillable = [
         'title',
         'description',
+        'is_active',
     ];
 
     public function tasks()
