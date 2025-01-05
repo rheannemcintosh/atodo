@@ -3,7 +3,8 @@
 <ul>
     @foreach ($categories as $category)
         <li>
-            {{ $category->name }}
+            {{ $category->title }}
+            <a href="{{ route('categories.show', $category->id) }}">Show</a>
             <a href="{{ route('categories.edit', $category->id) }}">Edit</a>
             <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline;">
                 @csrf

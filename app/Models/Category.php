@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $fillable = [
-        'name'
+        'title',
+        'description',
+        'is_active',
     ];
 
     public function tasks()
