@@ -32,7 +32,7 @@ class CategoryController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'title'       => 'required|string|max:255',
         ]);
 
         Category::create($request->all());
@@ -62,7 +62,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'title'       => 'required|string|max:255',
         ]);
 
         $category->update($request->all());
