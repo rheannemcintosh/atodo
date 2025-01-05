@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class TaskDetail extends Model
 {
     protected $fillable = [
+        'title',
         'category_id',
-        'title'
+        'description',
+        'preferred_frequency',
+        'is_active'
     ];
 
     public function category()
