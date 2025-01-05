@@ -36,4 +36,5 @@ Route::get('to-do-list/{toDoList}/edit', [ToDoListController::class, 'edit'])->n
 Route::put('to-do-list/{toDoList}', [ToDoListController::class, 'update'])->name('to-do-list.update');
 Route::delete('to-do-list/{toDoList}', [ToDoListController::class, 'destroy'])->name('to-do-list.destroy');
 
+Route::resource('task-details', TaskDetailController::class);
 require __DIR__.'/auth.php';
