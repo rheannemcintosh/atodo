@@ -48,4 +48,14 @@ class TaskDetailController extends Controller
 
         return redirect()->route('task-details.index')->with('success', 'Task Detail created successfully.');
     }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $taskDetail = TaskDetail::findOrFail($id)->with('category')->first();
+
+        return View::make('task-detail.show', compact('taskDetail'));
+    }
 }
