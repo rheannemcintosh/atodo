@@ -54,7 +54,7 @@ class TaskDetailController extends Controller
      */
     public function show(string $id)
     {
-        $taskDetail = TaskDetail::findOrFail($id)->with('category')->first();
+        $taskDetail = TaskDetail::with('category')->findOrFail($id);
 
         return View::make('task-detail.show', compact('taskDetail'));
     }
