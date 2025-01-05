@@ -58,4 +58,14 @@ class TaskDetailController extends Controller
 
         return View::make('task-detail.show', compact('taskDetail'));
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(TaskDetail $taskDetail)
+    {
+        $taskDetail->delete();
+
+        return redirect()->route('task-details.index')->with('success', 'Task Detail deleted successfully.');
+    }
 }
