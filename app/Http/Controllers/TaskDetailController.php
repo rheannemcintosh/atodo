@@ -60,6 +60,34 @@ class TaskDetailController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(TaskDetail $taskDetail): \Illuminate\Contracts\View\View
+    {
+        $categories = Category::select('id', 'title')->get();
+
+        return View::make('task-detail.edit', compact('taskDetail', 'categories'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, TaskDetail $taskDetail): \Illuminate\Http\RedirectResponse
+    {
+        $request->validate([
+            'title'               => 'required|string|max:255',
+            'category_id'         => 'required|exists:categories,id',
+            'description'         => 'nullable|string',
+            'preferred_frequency' => ['required', Rule::enum(PreferredFrequency::class)],
+            'is_active'           => 'boolean',
+        ]);
+
+        $taskDetail->update($request->all());
+
+        return redirect()->route('task-details.index')->with('success', 'Task Detail updated successfully.');
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(TaskDetail $taskDetail)
