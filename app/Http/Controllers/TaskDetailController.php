@@ -40,7 +40,7 @@ class TaskDetailController extends Controller
             'title'               => 'required|string|max:255',
             'category_id'         => 'required|exists:categories,id',
             'description'         => 'nullable|string',
-            'preferred_frequency' => Rule::enum(PreferredFrequency::class),
+            'preferred_frequency' => ['required', Rule::enum(PreferredFrequency::class)],
             'is_active'           => 'boolean',
         ]);
 
