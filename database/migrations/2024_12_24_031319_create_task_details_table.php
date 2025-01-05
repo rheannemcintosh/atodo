@@ -13,8 +13,21 @@ return new class extends Migration
     {
         Schema::create('task_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained();
             $table->string('title');
+            $table->foreignId('category_id')->constrained();
+            $table->text('description')->nullable();
+            $table->enum('preferred_frequency', [
+                'Daily',
+                'Weekly',
+                'Bi-Weekly',
+                'Monthly',
+                'Quarterly',
+                'Biannually',
+                'Yearly',
+                'Intermittent',
+                'Unique'
+            ])->nullable();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }
