@@ -20,7 +20,8 @@ return new class extends Migration
             $table->enum('status', [
                 'To Do',
                 'In Progress',
-                'Done',
+                'Partially Completed',
+                'Completed',
                 'Cancelled',
             ]);
             $table->json('to_do_list_ids')->nullable();
