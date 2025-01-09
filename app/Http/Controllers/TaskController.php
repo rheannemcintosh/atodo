@@ -60,4 +60,14 @@ class TaskController extends Controller
 
         return View::make('tasks.show', compact('task'));
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Task $task)
+    {
+        $task->delete();
+
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
+    }
 }
