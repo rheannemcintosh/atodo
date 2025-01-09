@@ -50,4 +50,14 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $task = Task::with('taskDetail')->findOrFail($id);
+
+        return View::make('tasks.show', compact('task'));
+    }
 }
