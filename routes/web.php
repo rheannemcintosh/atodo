@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskDetailController;
 use App\Http\Controllers\ToDoListController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +39,6 @@ Route::put('to-do-list/{toDoList}', [ToDoListController::class, 'update'])->name
 Route::delete('to-do-list/{toDoList}', [ToDoListController::class, 'destroy'])->name('to-do-list.destroy');
 
 Route::resource('task-details', TaskDetailController::class);
+
+Route::resource('tasks', TaskController::class);
 require __DIR__.'/auth.php';
