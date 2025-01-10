@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\TaskDetail;
-use App\PreferredFrequency;
 use App\TaskStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -27,7 +26,7 @@ class TaskController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\View
     {
-        $taskDetails = TaskDetail::select('id', 'title')->get();;
+        $taskDetails = TaskDetail::select('id', 'title')->get();
 
         return View::make('tasks.create', compact('taskDetails'));
     }
@@ -59,6 +58,35 @@ class TaskController extends Controller
         $task = Task::with('taskDetail')->findOrFail($id);
 
         return View::make('tasks.show', compact('task'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Task $task): \Illuminate\Contracts\View\View
+    {
+        $taskDetails = TaskDetail::select('id', 'title')->get();
+
+        return View::make('tasks.edit', compact('task', 'taskDetails'));
+    }
+    
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Task $task): \Illuminate\Http\RedirectResponse
+    {
+        $request->validate([
+            'task_detail_id' => 'required|exists:task_details,id',
+            'due_date'       => 'nullable|date',
+            'started_at'     => 'nullable|date',
+            'completed_at'   => 'nullable|date',
+            'status'         => ['required', Rule::enum(TaskStatus::class)],
+            'to_do_list_ids' => 'nullable|array',
+        ]);
+
+        $task->update($request->all());
+
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
     /**
