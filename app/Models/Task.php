@@ -20,8 +20,8 @@ class Task extends Model
         return $this->belongsTo(TaskDetail::class);
     }
 
-    public function toDoList()
+    public function toDoLists()
     {
-        return $this->hasMany(ToDoList::class);
+        return $this->belongsToMany(ToDoList::class, 'to_do_list_tasks');
     }
 }
