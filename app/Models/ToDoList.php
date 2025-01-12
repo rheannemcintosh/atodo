@@ -14,6 +14,10 @@ class ToDoList extends Model
         'completed'
     ];
 
+    protected $dates = [
+        'date',
+    ];
+
     public function tasks()
     {
         return $this->belongsToMany(Task::class, 'to_do_list_tasks');

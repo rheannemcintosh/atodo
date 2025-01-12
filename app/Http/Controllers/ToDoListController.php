@@ -40,11 +40,16 @@ class ToDoListController extends Controller
             'is_makeup_day'  => 'boolean',
         ]);
 
-        $toDoList = ToDoList::create($request->all());
+        $toDoList = ToDoList::create([
+            'date'           => $request->date,
+            'is_working_day' => (bool)$request->is_working_day,
+            'is_outside_day' => (bool)$request->is_outside_day,
+            'is_makeup_day'  => (bool)$request->is_makeup_day,
+        ]);
 
         app(TaskAssignmentService::class)->assignTasks($toDoList);
 
-        return redirect()->route('to-do-list.index')->with('success', 'Category created successfully.');
+        return redirect()->route('to-do-list.index')->with('success', 'To Do List created successfully.');
     }
 
     /**
@@ -82,9 +87,20 @@ class ToDoListController extends Controller
         foreach ($tasksByCategory as $categoryId => $tasks) {
             $category = Category::find($categoryId);
 
+            // Further group tasks by frequency
+            $tasksByFrequency = $tasks->groupBy('preferred_frequency');
+
+            $groupedFrequencies = [];
+            foreach ($tasksByFrequency as $frequency => $tasksInFrequency) {
+                $groupedFrequencies[] = [
+                    'frequency' => $frequency ?? 'No Frequency', // Default if no frequency is set
+                    'tasks' => $tasksInFrequency,
+                ];
+            }
+
             $groupedTasks[] = [
-                'category_name' => $category ? $category->name : 'Uncategorized',
-                'tasks' => $tasks,
+                'category_name' => $category ? $category->title : 'Uncategorized',
+                'frequencies' => $groupedFrequencies,
             ];
         }
 
@@ -115,12 +131,11 @@ class ToDoListController extends Controller
             'is_makeup_day'  => 'boolean',
         ]);
 
-        $toDoList->update($request->all());
-
         $toDoList->update([
-            'is_working_day' => $request->has('is_working_day') ? 1 : 0,
-            'is_outside_day' => $request->has('is_outside_day') ? 1 : 0,
-            'is_makeup_day'  => $request->has('is_makeup_day') ? 1 : 0,
+            'date'           => $request->date,
+            'is_working_day' => (bool)$request->is_working_day,
+            'is_outside_day' => (bool)$request->is_outside_day,
+            'is_makeup_day'  => (bool)$request->is_makeup_day,
         ]);
 
         return redirect()->route('to-do-list.index')->with('success', 'To Do List updated successfully.');
