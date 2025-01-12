@@ -24,7 +24,6 @@ return new class extends Migration
                 'Completed',
                 'Cancelled',
             ]);
-            $table->json('to_do_list_ids')->nullable();
             $table->timestamps();
         });
     }

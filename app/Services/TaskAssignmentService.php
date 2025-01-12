@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Task;
 use App\Models\TaskDetail;
 use App\Models\ToDoList;
 
@@ -14,21 +15,33 @@ class TaskAssignmentService
      */
     public function assignTasks (ToDoList $toDoList)
     {
-        // Assign all Daily Tasks to the To Do List
-        $categories = [1, 2, 3, 4, 5, 6];
-        $this->createTasks($toDoList, TaskDetail::whereIn('category_id', $categories)->get());
+        $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
+            ->whereNull('dependency')
+            ->get();
 
-        $conditionalCategories = [
-            'is_makeup_day' => 15,
-            'is_working_day' => 16,
-            'is_outside_day' => 17,
-        ];
+        $this->createTasks($toDoList, $taskDetails);
 
-        // Assign all Conditional Tasks to the To Do List
-        foreach ($conditionalCategories as $condition => $categoryId) {
-            if ($toDoList->$condition) {
-                $this->createTasks($toDoList, TaskDetail::where('category_id', $categoryId)->get());
-            }
+        if ($toDoList->is_makeup_day) {
+            $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
+                ->where('dependency', 'makeup')
+                ->get();
+
+            $this->createTasks($toDoList, $taskDetails);
+        }
+
+        if ($toDoList->is_working_day) {
+            $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
+                ->where('dependency', 'work')
+                ->get();
+
+            $this->createTasks($toDoList, $taskDetails);
+        }
+        if ($toDoList->is_outside_day) {
+            $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
+                ->where('dependency', 'outside')
+                ->get();
+
+            $this->createTasks($toDoList, $taskDetails);
         }
     }
 
@@ -38,14 +51,15 @@ class TaskAssignmentService
      * @param ToDoList $toDoList
      * @param $tasks
      */
-    private function createTasks (ToDoList $toDoList, $tasks)
+    private function createTasks (ToDoList $toDoList, $taskDetails)
     {
-        foreach ($tasks as $task) {
-            $toDoList->tasks()->create([
-                'task_detail_id' => $task->id,
-                'to_do_list_id'  => $toDoList->id,
+        foreach ($taskDetails as $taskDetail) {
+            $task = Task::create([
+                'task_detail_id' => $taskDetail->id,
                 'status'         => 'To Do',
             ]);
+
+            $toDoList->tasks()->attach($task->id);
         }
     }
 }
