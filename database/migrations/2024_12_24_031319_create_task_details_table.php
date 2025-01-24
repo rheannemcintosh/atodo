@@ -27,6 +27,7 @@ return new class extends Migration
                 'Intermittent',
                 'Unique'
             ])->nullable();
+            $table->string('dependency')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });

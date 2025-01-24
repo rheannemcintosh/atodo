@@ -11,6 +11,7 @@ class TaskDetail extends Model
         'category_id',
         'description',
         'preferred_frequency',
+        'dependency',
         'is_active'
     ];
 
