@@ -17,6 +17,7 @@ return new class extends Migration
             $table->boolean('is_working_day')->default(false);
             $table->boolean('is_outside_day')->default(false);
             $table->boolean('is_makeup_day')->default(false);
+            $table->boolean('is_home_day')->default(false);
             $table->boolean('completed')->default(false);
             $table->timestamps();
         });
