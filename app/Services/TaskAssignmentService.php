@@ -21,6 +21,14 @@ class TaskAssignmentService
 
         $this->createTasks($toDoList, $taskDetails);
 
+        if ($toDoList->is_home_day) {
+            $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
+                ->where('dependency', 'home')
+                ->get();
+
+            $this->createTasks($toDoList, $taskDetails);
+        }
+
         if ($toDoList->is_makeup_day) {
             $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
                 ->where('dependency', 'makeup')

@@ -11,6 +11,7 @@ class ToDoList extends Model
         'is_working_day',
         'is_outside_day',
         'is_makeup_day',
+        'is_home_day',
         'completed'
     ];
 

@@ -38,6 +38,7 @@ class ToDoListController extends Controller
             'is_working_day' => 'boolean',
             'is_outside_day' => 'boolean',
             'is_makeup_day'  => 'boolean',
+            'is_home_day'    => 'boolean',
         ]);
 
         $toDoList = ToDoList::create([
@@ -45,6 +46,7 @@ class ToDoListController extends Controller
             'is_working_day' => (bool)$request->is_working_day,
             'is_outside_day' => (bool)$request->is_outside_day,
             'is_makeup_day'  => (bool)$request->is_makeup_day,
+            'is_home_day'    => (bool)$request->is_home_day,
         ]);
 
         app(TaskAssignmentService::class)->assignTasks($toDoList);
@@ -129,6 +131,7 @@ class ToDoListController extends Controller
             'is_working_day' => 'boolean',
             'is_outside_day' => 'boolean',
             'is_makeup_day'  => 'boolean',
+            'is_home_day'    => 'boolean',
         ]);
 
         $toDoList->update([
@@ -136,6 +139,7 @@ class ToDoListController extends Controller
             'is_working_day' => (bool)$request->is_working_day,
             'is_outside_day' => (bool)$request->is_outside_day,
             'is_makeup_day'  => (bool)$request->is_makeup_day,
+            'is_home_day'    => (bool)$request->is_home_day,
         ]);
 
         return redirect()->route('to-do-list.index')->with('success', 'To Do List updated successfully.');

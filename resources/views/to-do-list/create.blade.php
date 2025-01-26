@@ -7,6 +7,10 @@
             @csrf
             <input type="date" name="date">
             <div>
+                <label for="is_home_day">Is Home Day?</label>
+                <input type="checkbox" name="is_home_day" value="1">
+            </div>
+            <div>
                 <label for="is_working-day">Is Working Day?</label>
                 <input type="checkbox" name="is_working_day" value="1">
             </div>
