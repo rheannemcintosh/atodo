@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Task;
 use App\Models\ToDoList;
 use App\Services\TaskAssignmentService;
 use Illuminate\Http\Request;
@@ -143,6 +144,26 @@ class ToDoListController extends Controller
         ]);
 
         return redirect()->route('to-do-list.index')->with('success', 'To Do List updated successfully.');
+    }
+
+    /**
+     * Update all tasks attached to a to do list.
+     *
+     * @param Request $request
+     * @param ToDoList $toDoList
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateTasks(Request $request, ToDoList $toDoList): \Illuminate\Http\RedirectResponse
+    {
+        $tasks = $request->input('tasks', []);
+        foreach ($tasks as $id => $data) {
+
+            $task = Task::findOrFail($id);
+            $task->status = $data['status'] ?? $task->status; // Use existing status if not provided
+            $task->save();
+        }
+
+        return redirect()->back()->with('success', 'All task statuses updated successfully!');
     }
 
     /**
