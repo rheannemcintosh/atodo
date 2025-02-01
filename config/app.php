@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application Status
+    |--------------------------------------------------------------------------
+    |
+    | This value is the status of your application, which will be used to
+    | control what is displayed to the user. For example, if the status is
+    | set to "Coming Soon", a coming soon message will be displayed.
+    |
+    */
+
+    'status' => env('APP_STATUS', '')
 ];
