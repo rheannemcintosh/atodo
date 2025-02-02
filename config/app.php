@@ -134,5 +134,19 @@ return [
     |
     */
 
-    'status' => env('APP_STATUS', '')
+    'status' => env('APP_STATUS', ''),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Override Emails
+    |--------------------------------------------------------------------------
+    |
+    | To allow for testing in production to take place before going live to
+    | the public, we can set a list of emails that can override the
+    | registration block.
+    |
+    | This takes a comma separated list of emails, and explodes them into an array.
+    |
+    */
+    'override_emails' => explode(",",env('APP_OVERRIDE_EMAILS')),
 ];
