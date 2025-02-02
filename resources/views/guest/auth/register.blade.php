@@ -2,13 +2,13 @@
     <h1 class="text-white font-atodo text-center font-black text-7xl pb-12">Atodo</h1>
     <div class="bg-rose-700 p-12 rounded-lg">
         <h2 class="text-white font-atodo text-center text-3xl pb-4">Register</h2>
-        <form class="text-white" method="POST" action="{{ route('register') }}">
+        <form class="" method="POST" action="{{ route('register') }}">
             @csrf
 
             <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('Name')" />
-                <x-text-input id="name" class="text-white block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
