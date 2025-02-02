@@ -35,6 +35,13 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        if (
+            config('app.status') == "Coming Soon" &&
+            !in_array($request->email, config('app.override_emails'))
+        ) {
+            return redirect()->route('home');
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
