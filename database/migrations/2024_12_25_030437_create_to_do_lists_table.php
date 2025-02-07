@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('to_do_lists', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->date('date');
             $table->boolean('is_working_day')->default(false);
             $table->boolean('is_outside_day')->default(false);

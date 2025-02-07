@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('task_detail_id')->constrained();
             $table->date('due_date')->nullable();
             $table->date('started_at')->nullable();
