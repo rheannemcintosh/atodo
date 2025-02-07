@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\UserScope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
+#[ScopedBy(UserScope::class)]
 class Task extends Model
 {
     protected $fillable = [
@@ -23,5 +27,16 @@ class Task extends Model
     public function toDoLists()
     {
         return $this->belongsToMany(ToDoList::class, 'to_do_list_tasks');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (Auth::check()) {
+                $model->user_id = Auth::id();
+            }
+        });
     }
 }
