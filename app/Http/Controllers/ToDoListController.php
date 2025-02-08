@@ -96,7 +96,7 @@ class ToDoListController extends Controller
             $groupedFrequencies = [];
             foreach ($tasksByFrequency as $frequency => $tasksInFrequency) {
                 $groupedFrequencies[] = [
-                    'frequency' => $frequency ?? 'No Frequency', // Default if no frequency is set
+                    'frequency' => $frequency,
                     'tasks' => $tasksInFrequency,
                 ];
             }
