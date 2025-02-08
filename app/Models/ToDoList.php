@@ -23,7 +23,7 @@ class ToDoList extends Model
         'date',
     ];
 
-    public function tasks()
+    public function tasks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Task::class, 'to_do_list_tasks');
     }
