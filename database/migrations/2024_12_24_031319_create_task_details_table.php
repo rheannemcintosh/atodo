@@ -26,7 +26,7 @@ return new class extends Migration
                 'Biannually',
                 'Yearly',
                 'Intermittent',
-                'Unique'
+                'Unique',
             ])->nullable();
             $table->string('dependency')->nullable();
             $table->boolean('is_active')->default(false);

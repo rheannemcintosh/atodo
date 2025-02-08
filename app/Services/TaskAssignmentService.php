@@ -10,10 +10,8 @@ class TaskAssignmentService
 {
     /**
      * Assign tasks to the To Do List based on the To Do List's properties
-     *
-     * @param ToDoList $toDoList
      */
-    public function assignTasks (ToDoList $toDoList)
+    public function assignTasks(ToDoList $toDoList)
     {
         $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
             ->whereNull('dependency')
@@ -56,15 +54,14 @@ class TaskAssignmentService
     /**
      * Create tasks for the To Do List
      *
-     * @param ToDoList $toDoList
-     * @param $tasks
+     * @param  $tasks
      */
-    private function createTasks (ToDoList $toDoList, $taskDetails)
+    private function createTasks(ToDoList $toDoList, $taskDetails)
     {
         foreach ($taskDetails as $taskDetail) {
             $task = Task::create([
                 'task_detail_id' => $taskDetail->id,
-                'status'         => 'To Do',
+                'status' => 'To Do',
             ]);
 
             $toDoList->tasks()->attach($task->id);

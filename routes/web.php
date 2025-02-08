@@ -52,5 +52,4 @@ Route::middleware('auth')->group(function () {
     Route::resource('tags', TagController::class);
 });
 
-
 require __DIR__.'/auth.php';

@@ -18,6 +18,7 @@ class ToDoListController extends Controller
     public function index(): \Illuminate\Contracts\View\View
     {
         $toDoLists = ToDoList::all();
+
         return View::make('to-do-list.index', compact('toDoLists'));
     }
 
@@ -35,19 +36,19 @@ class ToDoListController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'date'           => 'required|date|unique:to_do_lists',
+            'date' => 'required|date|unique:to_do_lists',
             'is_working_day' => 'boolean',
             'is_outside_day' => 'boolean',
-            'is_makeup_day'  => 'boolean',
-            'is_home_day'    => 'boolean',
+            'is_makeup_day' => 'boolean',
+            'is_home_day' => 'boolean',
         ]);
 
         $toDoList = ToDoList::create([
-            'date'           => $request->date,
-            'is_working_day' => (bool)$request->is_working_day,
-            'is_outside_day' => (bool)$request->is_outside_day,
-            'is_makeup_day'  => (bool)$request->is_makeup_day,
-            'is_home_day'    => (bool)$request->is_home_day,
+            'date' => $request->date,
+            'is_working_day' => (bool) $request->is_working_day,
+            'is_outside_day' => (bool) $request->is_outside_day,
+            'is_makeup_day' => (bool) $request->is_makeup_day,
+            'is_home_day' => (bool) $request->is_home_day,
         ]);
 
         app(TaskAssignmentService::class)->assignTasks($toDoList);
@@ -66,7 +67,7 @@ class ToDoListController extends Controller
         // Find the to-do list for the given date
         $toDoList = ToDoList::whereDate('date', $date)->first();
 
-        if (!$toDoList) {
+        if (! $toDoList) {
             abort(404, 'To-do list not found for the given date.');
         }
 
@@ -79,6 +80,7 @@ class ToDoListController extends Controller
         $joinedCollection = $taskDetails->map(function ($task) use ($tasks) {
             $task['status'] = $tasks->firstWhere('task_detail_id', $task['id'])['status'] ?? null; // Get status or null
             $task['task_status_id'] = $tasks->firstWhere('task_detail_id', $task['id'])['id'] ?? null;
+
             return $task;
         });
 
@@ -131,16 +133,16 @@ class ToDoListController extends Controller
             ],
             'is_working_day' => 'boolean',
             'is_outside_day' => 'boolean',
-            'is_makeup_day'  => 'boolean',
-            'is_home_day'    => 'boolean',
+            'is_makeup_day' => 'boolean',
+            'is_home_day' => 'boolean',
         ]);
 
         $toDoList->update([
-            'date'           => $request->date,
-            'is_working_day' => (bool)$request->is_working_day,
-            'is_outside_day' => (bool)$request->is_outside_day,
-            'is_makeup_day'  => (bool)$request->is_makeup_day,
-            'is_home_day'    => (bool)$request->is_home_day,
+            'date' => $request->date,
+            'is_working_day' => (bool) $request->is_working_day,
+            'is_outside_day' => (bool) $request->is_outside_day,
+            'is_makeup_day' => (bool) $request->is_makeup_day,
+            'is_home_day' => (bool) $request->is_home_day,
         ]);
 
         return redirect()->route('to-do-list.index')->with('success', 'To Do List updated successfully.');
@@ -148,10 +150,6 @@ class ToDoListController extends Controller
 
     /**
      * Update all tasks attached to a to do list.
-     *
-     * @param Request $request
-     * @param ToDoList $toDoList
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateTasks(Request $request, ToDoList $toDoList): \Illuminate\Http\RedirectResponse
     {

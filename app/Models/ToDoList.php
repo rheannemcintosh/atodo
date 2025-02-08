@@ -16,7 +16,7 @@ class ToDoList extends Model
         'is_outside_day',
         'is_makeup_day',
         'is_home_day',
-        'completed'
+        'completed',
     ];
 
     protected $dates = [

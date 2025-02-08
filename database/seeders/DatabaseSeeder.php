@@ -10,15 +10,14 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-
     /**
-     * @var string[] $customSeeders
+     * @var string[]
      */
     private array $customSeeders = [
-        'database/seeders/custom/CategorySeeder.php'   => CategorySeeder::class,
+        'database/seeders/custom/CategorySeeder.php' => CategorySeeder::class,
         'database/seeders/custom/TaskDetailSeeder.php' => TaskDetailSeeder::class,
-        'database/seeders/custom/TaskSeeder.php'       => TaskSeeder::class,
-        'database/seeders/custom/ToDoListSeeder.php'   => ToDoListSeeder::class,
+        'database/seeders/custom/TaskSeeder.php' => TaskSeeder::class,
+        'database/seeders/custom/ToDoListSeeder.php' => ToDoListSeeder::class,
     ];
 
     /**

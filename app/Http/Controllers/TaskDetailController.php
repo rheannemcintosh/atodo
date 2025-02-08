@@ -37,11 +37,11 @@ class TaskDetailController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'               => 'required|string|max:255',
-            'category_id'         => 'required|exists:categories,id',
-            'description'         => 'nullable|string',
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'nullable|string',
             'preferred_frequency' => ['required', Rule::enum(PreferredFrequency::class)],
-            'is_active'           => 'boolean',
+            'is_active' => 'boolean',
         ]);
 
         TaskDetail::create($request->all());
@@ -75,11 +75,11 @@ class TaskDetailController extends Controller
     public function update(Request $request, TaskDetail $taskDetail): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'title'               => 'required|string|max:255',
-            'category_id'         => 'required|exists:categories,id',
-            'description'         => 'nullable|string',
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'nullable|string',
             'preferred_frequency' => ['required', Rule::enum(PreferredFrequency::class)],
-            'is_active'           => 'boolean',
+            'is_active' => 'boolean',
         ]);
 
         $taskDetail->update($request->all());

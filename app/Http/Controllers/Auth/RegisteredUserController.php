@@ -36,8 +36,8 @@ class RegisteredUserController extends Controller
         ]);
 
         if (
-            config('app.status') == "Coming Soon" &&
-            !in_array($request->email, config('app.override_emails'))
+            config('app.status') == 'Coming Soon' &&
+            ! in_array($request->email, config('app.override_emails'))
         ) {
             return redirect()->route('home');
         }
