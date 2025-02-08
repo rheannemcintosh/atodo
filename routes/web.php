@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskDetailController;
 use App\Http\Controllers\ToDoListController;
@@ -47,6 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('tasks', TaskController::class);
 
     Route::resource('projects', ProjectController::class);
+
+    Route::resource('tags', TagController::class);
 });
 
 
