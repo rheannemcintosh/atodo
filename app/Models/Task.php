@@ -19,7 +19,7 @@ class Task extends Model
         'to_do_list_ids',
     ];
 
-    public function taskDetail()
+    public function taskDetail(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TaskDetail::class);
     }
