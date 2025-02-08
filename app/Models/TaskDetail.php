@@ -16,7 +16,7 @@ class TaskDetail extends Model
         'description',
         'preferred_frequency',
         'dependency',
-        'is_active'
+        'is_active',
     ];
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo

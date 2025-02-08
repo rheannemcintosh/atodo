@@ -6,7 +6,6 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
-
 class CategoryController extends Controller
 {
     /**
@@ -15,6 +14,7 @@ class CategoryController extends Controller
     public function index(): \Illuminate\Contracts\View\View
     {
         $categories = Category::all();
+
         return View::make('categories.index', compact('categories'));
     }
 
@@ -32,9 +32,9 @@ class CategoryController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'title'       => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'is_active'   => 'boolean',
+            'is_active' => 'boolean',
         ]);
 
         Category::create($request->all());
@@ -64,9 +64,9 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'title'       => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'is_active'   => 'boolean',
+            'is_active' => 'boolean',
         ]);
 
         $category->update($request->all());

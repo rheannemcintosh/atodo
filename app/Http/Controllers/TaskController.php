@@ -38,10 +38,10 @@ class TaskController extends Controller
     {
         $request->validate([
             'task_detail_id' => 'required|exists:task_details,id',
-            'due_date'       => 'nullable|date',
-            'started_at'     => 'nullable|date',
-            'completed_at'   => 'nullable|date',
-            'status'         => ['required', Rule::enum(TaskStatus::class)],
+            'due_date' => 'nullable|date',
+            'started_at' => 'nullable|date',
+            'completed_at' => 'nullable|date',
+            'status' => ['required', Rule::enum(TaskStatus::class)],
             'to_do_list_ids' => 'nullable|array',
         ]);
 
@@ -69,7 +69,7 @@ class TaskController extends Controller
 
         return View::make('tasks.edit', compact('task', 'taskDetails'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      */
@@ -77,10 +77,10 @@ class TaskController extends Controller
     {
         $request->validate([
             'task_detail_id' => 'required|exists:task_details,id',
-            'due_date'       => 'nullable|date',
-            'started_at'     => 'nullable|date',
-            'completed_at'   => 'nullable|date',
-            'status'         => ['required', Rule::enum(TaskStatus::class)],
+            'due_date' => 'nullable|date',
+            'started_at' => 'nullable|date',
+            'completed_at' => 'nullable|date',
+            'status' => ['required', Rule::enum(TaskStatus::class)],
             'to_do_list_ids' => 'nullable|array',
         ]);
 

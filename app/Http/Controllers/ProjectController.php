@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Models\Task;
-use App\TaskStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -39,7 +36,7 @@ class ProjectController extends Controller
             'description' => 'nullable|string',
             'started_at' => 'nullable|date',
             'completed_at' => 'nullable|date',
-            'due_date' => 'nullable|date'
+            'due_date' => 'nullable|date',
         ]);
 
         Project::create($request->all());
@@ -73,7 +70,7 @@ class ProjectController extends Controller
             'description' => 'nullable|string',
             'started_at' => 'nullable|date',
             'completed_at' => 'nullable|date',
-            'due_date' => 'nullable|date'
+            'due_date' => 'nullable|date',
         ]);
 
         $project->update($request->all());

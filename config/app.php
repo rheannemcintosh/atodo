@@ -148,5 +148,5 @@ return [
     | This takes a comma separated list of emails, and explodes them into an array.
     |
     */
-    'override_emails' => explode(",",env('APP_OVERRIDE_EMAILS')),
+    'override_emails' => explode(',', env('APP_OVERRIDE_EMAILS')),
 ];
