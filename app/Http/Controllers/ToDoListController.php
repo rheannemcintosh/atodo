@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Task;
 use App\Models\ToDoList;
+use App\Rules\EndDateRequired;
 use App\Services\TaskAssignmentService;
+use App\ToDoListType;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
@@ -36,15 +39,23 @@ class ToDoListController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'date' => 'required|date|unique:to_do_lists',
-            'is_working_day' => 'boolean',
-            'is_outside_day' => 'boolean',
-            'is_makeup_day' => 'boolean',
-            'is_home_day' => 'boolean',
+            'type' => ['required', Rule::enum(ToDoListType::class)],
+            'start_date' => 'required|date',
+            'end_date' => [new EndDateRequired()],
+            'is_working_day' => 'nullable|boolean',
+            'is_outside_day' => 'nullable|boolean',
+            'is_makeup_day' => 'nullable|boolean',
+            'is_home_day' => 'nullable|boolean',
         ]);
 
+        // Generate slug based on the type
+        $slug = $this->generateSlug($request->type, $request->start_date, $request->end_date);
+
         $toDoList = ToDoList::create([
-            'date' => $request->date,
+            'type' => $request->type,
+            'slug' => $slug,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date ?? null,
             'is_working_day' => (bool) $request->is_working_day,
             'is_outside_day' => (bool) $request->is_outside_day,
             'is_makeup_day' => (bool) $request->is_makeup_day,
@@ -59,13 +70,9 @@ class ToDoListController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($year, $month, $day)
+    public function show($type, $slug)
     {
-        // Parse the date into a format matching the database
-        $date = "$year-$month-$day";
-
-        // Find the to-do list for the given date
-        $toDoList = ToDoList::whereDate('date', $date)->first();
+        $toDoList = ToDoList::where('slug', $slug)->first();
 
         if (! $toDoList) {
             abort(404, 'To-do list not found for the given date.');
@@ -126,19 +133,23 @@ class ToDoListController extends Controller
     public function update(Request $request, ToDoList $toDoList): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'date' => [
-                'required',
-                'date',
-                Rule::unique('to_do_lists')->ignore($toDoList->id),
-            ],
-            'is_working_day' => 'boolean',
-            'is_outside_day' => 'boolean',
-            'is_makeup_day' => 'boolean',
-            'is_home_day' => 'boolean',
+            'type' => ['required', Rule::enum(ToDoListType::class)],
+            'start_date' => 'required|date',
+            'end_date' => [new EndDateRequired()],
+            'is_working_day' => 'nullable|boolean',
+            'is_outside_day' => 'nullable|boolean',
+            'is_makeup_day' => 'nullable|boolean',
+            'is_home_day' => 'nullable|boolean',
         ]);
 
+        // Generate slug based on the type
+        $slug = $this->generateSlug($request->type, $request->start_date, $request->end_date);
+
         $toDoList->update([
-            'date' => $request->date,
+            'type' => $request->type,
+            'slug' => $slug,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date ?? null,
             'is_working_day' => (bool) $request->is_working_day,
             'is_outside_day' => (bool) $request->is_outside_day,
             'is_makeup_day' => (bool) $request->is_makeup_day,
@@ -172,5 +183,21 @@ class ToDoListController extends Controller
         $toDoList->delete();
 
         return redirect()->route('to-do-list.index')->with('success', 'To Do List deleted successfully.');
+    }
+
+    private function generateSlug(string $type, string $startDate, ?string $endDate = null): string
+    {
+        $carbonDate = \Carbon\Carbon::parse($startDate)->locale('en_US');
+
+        switch ($type) {
+            case 'Daily':
+                return $carbonDate->format('Y-m-d'); // 2024-01-31
+
+            case 'Weekly':
+                return $carbonDate->isoFormat('Y-\Www'); // 2025-W52
+
+            default:
+                throw new \InvalidArgumentException("Invalid to-do list type.");
+        }
     }
 }
