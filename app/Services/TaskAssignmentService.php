@@ -13,38 +13,46 @@ class TaskAssignmentService
      */
     public function assignTasks(ToDoList $toDoList)
     {
-        $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
-            ->whereNull('dependency')
-            ->get();
-
-        $this->createTasks($toDoList, $taskDetails);
-
-        if ($toDoList->is_home_day) {
+        if ($toDoList->type == 'Daily') {
             $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
-                ->where('dependency', 'home')
+                ->whereNull('dependency')
                 ->get();
 
             $this->createTasks($toDoList, $taskDetails);
-        }
 
-        if ($toDoList->is_makeup_day) {
-            $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
-                ->where('dependency', 'makeup')
-                ->get();
+            if ($toDoList->is_home_day) {
+                $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
+                    ->where('dependency', 'home')
+                    ->get();
 
-            $this->createTasks($toDoList, $taskDetails);
-        }
+                $this->createTasks($toDoList, $taskDetails);
+            }
 
-        if ($toDoList->is_working_day) {
-            $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
-                ->where('dependency', 'work')
-                ->get();
+            if ($toDoList->is_makeup_day) {
+                $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
+                    ->where('dependency', 'makeup')
+                    ->get();
 
-            $this->createTasks($toDoList, $taskDetails);
-        }
-        if ($toDoList->is_outside_day) {
-            $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
-                ->where('dependency', 'outside')
+                $this->createTasks($toDoList, $taskDetails);
+            }
+
+            if ($toDoList->is_working_day) {
+                $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
+                    ->where('dependency', 'work')
+                    ->get();
+
+                $this->createTasks($toDoList, $taskDetails);
+            }
+            if ($toDoList->is_outside_day) {
+                $taskDetails = TaskDetail::where('preferred_frequency', 'Daily')
+                    ->where('dependency', 'outside')
+                    ->get();
+
+                $this->createTasks($toDoList, $taskDetails);
+            }
+        } elseif ($toDoList->type == 'Weekly') {
+            $taskDetails = TaskDetail::where('preferred_frequency', 'Weekly')
+                ->whereNull('dependency')
                 ->get();
 
             $this->createTasks($toDoList, $taskDetails);

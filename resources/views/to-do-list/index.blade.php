@@ -7,13 +7,12 @@
         <ul>
             @foreach ($toDoLists as $toDoList)
                 <li>
-                    {{ $toDoList->date }}
+                    {{ $toDoList->slug }}
                     <a
                         href="{{ route(
-                            'to-do-list.show',
-                            [date('Y', strtotime($toDoList->date)),
-                            date('m', strtotime($toDoList->date)),
-                            date('d', strtotime($toDoList->date))]
+                            'to-do-list.show', [
+                            $toDoList->type,
+                            $toDoList->slug]
                         )}}"
                         class="text-coral-500 hover:underline"
                     >

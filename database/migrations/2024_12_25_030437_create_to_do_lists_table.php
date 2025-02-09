@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('to_do_lists', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->date('date');
+            $table->enum('type', ['daily', 'weekly', 'monthly', 'quarterly', 'yearly', 'project'])->default('daily');
+            $table->string('slug')->unique();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->boolean('is_working_day')->default(false);
             $table->boolean('is_outside_day')->default(false);
             $table->boolean('is_makeup_day')->default(false);

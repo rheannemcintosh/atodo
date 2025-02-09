@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Auth;
 class ToDoList extends Model
 {
     protected $fillable = [
-        'date',
+        'type',
+        'slug',
+        'start_date',
+        'end_date',
         'is_working_day',
         'is_outside_day',
         'is_makeup_day',
