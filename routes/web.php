@@ -25,11 +25,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('categories', CategoryController::class);
 
-    Route::get('to-do-list/{year}-{month}-{day}', [ToDoListController::class, 'show'])
+    Route::get('to-do-list/{type}/{slug}',  [ToDoListController::class, 'show'])
         ->where([
-            'year' => '\d{4}', // Ensures year is a 4-digit number
-            'month' => '\d{2}', // Ensures month is a 2-digit number
-            'day' => '\d{2}', // Ensures day is a 2-digit number
+            'type' => 'daily|weekly|monthly',
         ])
         ->name('to-do-list.show');
 
