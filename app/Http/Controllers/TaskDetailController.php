@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\TaskDetail;
+use App\Models\ToDoList;
 use App\PreferredFrequency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -27,8 +28,9 @@ class TaskDetailController extends Controller
     public function create(): \Illuminate\Contracts\View\View
     {
         $categories = Category::select('id', 'title')->get();
+        $toDoLists = ToDoList::select('id', 'slug')->get();
 
-        return View::make('task-detail.create', compact('categories'));
+        return View::make('task-detail.create', compact('categories', 'toDoLists'));
     }
 
     /**
@@ -44,7 +46,19 @@ class TaskDetailController extends Controller
             'is_active' => 'boolean',
         ]);
 
-        TaskDetail::create($request->all());
+        $taskDetail = TaskDetail::create($request->all());
+
+        $request->validate([
+            'to_do_list_id' => 'exists:to_do_lists,id'
+        ]);
+
+        $toDoList = ToDoList::find($request->to_do_list_id);
+
+        $toDoList->tasks()->create([
+            'user_id' => auth()->id(),
+            'task_detail_id' => $taskDetail->id,
+            'status' => 'To Do',
+        ]);
 
         return redirect()->route('task-details.index')->with('success', 'Task Detail created successfully.');
     }

@@ -75,6 +75,23 @@
             >
             <label for="is_active" class="ml-2 text-sm font-medium text-gray-700">Is Active?</label>
         </div>
+
+        <!-- To Do List -->
+        <div class="flex flex-col">
+            <label for="to_do_list_id" class="text-sm font-medium text-gray-700">To Do List</label>
+            <select
+                name="to_do_list_id"
+                id="to_do_list_id"
+                class="text-sm mt-1 p-2 border  border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                required
+            >
+                <option value="" disabled selected>Select To Do List</option>
+                @foreach ($toDoLists as $toDoList)
+                    <option value="{{ $toDoList->id }}">{{ $toDoList->slug }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <!-- Submit Button -->
         <div>
             <button
