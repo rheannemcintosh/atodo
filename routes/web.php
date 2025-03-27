@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MealPlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TagController;
@@ -46,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('tasks', TaskController::class);
 
     Route::resource('projects', ProjectController::class);
+
+    Route::resource('meal-plans', MealPlanController::class);
 
     Route::resource('tags', TagController::class);
 });
