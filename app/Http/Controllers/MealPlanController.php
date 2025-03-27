@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MealPlanRequest1;
+use App\Http\Requests\MealPlanRequest;
 use App\Models\MealPlan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -35,10 +35,10 @@ class MealPlanController extends Controller
     /**
      * Store a newly created meal plan.
      *
-     * @param MealPlanRequest1 $request
+     * @param MealPlanRequest $request
      * @return RedirectResponse
      */
-    public function store(MealPlanRequest1 $request): RedirectResponse
+    public function store(MealPlanRequest $request): RedirectResponse
     {
         $mealPlan = new MealPlan($request->validated());
         $mealPlan->user_id = Auth::id();
@@ -73,11 +73,11 @@ class MealPlanController extends Controller
     /**
      * Update a specified meal plan.
      *
-     * @param MealPlanRequest1 $request
+     * @param MealPlanRequest $request
      * @param MealPlan $mealPlan
      * @return RedirectResponse
      */
-    public function update(MealPlanRequest1 $request, MealPlan $mealPlan): RedirectResponse
+    public function update(MealPlanRequest $request, MealPlan $mealPlan): RedirectResponse
     {
         $mealPlan->fill($request->validated());
         $mealPlan->user_id = Auth::id();
