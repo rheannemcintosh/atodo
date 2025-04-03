@@ -38,6 +38,7 @@ class TaskController extends Controller
     {
         $request->validate([
             'task_detail_id' => 'required|exists:task_details,id',
+            'short_description' => 'string|max:255',
             'due_date' => 'nullable|date',
             'started_at' => 'nullable|date',
             'completed_at' => 'nullable|date',
@@ -77,6 +78,7 @@ class TaskController extends Controller
     {
         $request->validate([
             'task_detail_id' => 'required|exists:task_details,id',
+            'short_description' => 'string|max:255',
             'due_date' => 'nullable|date',
             'started_at' => 'nullable|date',
             'completed_at' => 'nullable|date',
