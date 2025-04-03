@@ -24,7 +24,7 @@
                 <thead class="bg-gray-100 text-gray-700 rounded-3xl">
                     <tr>
                         <th class="px-4 py-2 rounded-tl-lg border-b border-gray-200">#</th>
-                        <th class="px-4 py-2 border-b border-gray-200">Task</th>
+                        <th class="px-4 py-2 border-b border-gray-200 max-w-48">Task</th>
                         <th class="px-4 py-2 border-b border-gray-200">Category</th>
                         <th class="px-4 py-2 border-b border-gray-200">Frequency</th>
                         <th class="px-4 py-2 border-b border-gray-200">Status</th>
@@ -42,8 +42,11 @@
                             @foreach ($frequency['tasks'] as $task)
                                 <tr class="border-b border-gray-200">
                                     <td class="text-xs px-4 py-2">{{ $task->id }}</td>
-                                    <td class="text-xs font-bold px-4 py-2">
-                                            {{ $task->title }}
+                                    <td class="text-xs font-bold px-4 py-2 max-w-48">
+                                        <div class="flex flex-col">
+                                            <span>{{ $task->title }}</span>
+                                            <span class="text-gray-400">{{ $task->short_description }}</span>
+                                        </div>
                                     </td>
                                     <td class="text-xs px-4 py-2">
                                         <span class="px-2 py-1 text-xs bg-gray-100 text-gray-700">
@@ -55,7 +58,7 @@
                                             {{ $task->preferred_frequency }}
                                         </span>
                                     </td>
-                                    <td class="px-4 py-2 ">
+                                    <td class="px-4 py-2">
                                         <span class="
                                             px-2 py-1 text-xs rounded font-bold
                                             @if ($task->status === 'Completed') bg-green-700 text-green-100 @endif

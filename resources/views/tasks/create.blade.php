@@ -14,6 +14,10 @@
             </select>
         </div>
         <div>
+            <label for="short_description">Short Description</label>
+            <input type="text" name="short_description" placeholder="Add a short description to distinguish between tasks...">
+        </div>
+        <div>
             <label for="due_date">Due Date</label>
             <input type="date" name="due_date" placeholder="Due Date">
         </div>
