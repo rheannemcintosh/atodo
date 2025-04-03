@@ -88,6 +88,7 @@ class ToDoListController extends Controller
             $task['status'] = $tasks->firstWhere('task_detail_id', $task['id'])['status'] ?? null; // Get status or null
             $task['task_status_id'] = $tasks->firstWhere('task_detail_id', $task['id'])['id'] ?? null;
 
+            $task['short_description'] = $tasks->firstWhere('task_detail_id', $task['id'])['short_description'] ?? null;
             return $task;
         });
 
