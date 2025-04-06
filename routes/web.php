@@ -11,8 +11,8 @@ use App\Http\Controllers\ToDoListController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
-})->name('home');
+    return view('view');
+})->name('coming-soon');
 
 Route::middleware('auth')->group(function () {
 
