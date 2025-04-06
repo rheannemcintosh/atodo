@@ -18,7 +18,7 @@ test('new users can register if they are in the list of app override emails', fu
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard', absolute: false));
+    $response->assertRedirect(route('home', absolute: false));
 });
 
 test('new users cannot register if they are not in the list of app override emails', function () {
