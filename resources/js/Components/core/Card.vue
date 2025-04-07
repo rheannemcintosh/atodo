@@ -1,11 +1,10 @@
 <script setup lang="ts">
 
+    // Import types
+    import type { CardType } from '@/types/core/CardType';
+
     // Define props
-    defineProps<{
-        heading: string;
-        icon?: string;
-        href?: string;
-    }>();
+    defineProps<CardType>();
 
 </script>
 
